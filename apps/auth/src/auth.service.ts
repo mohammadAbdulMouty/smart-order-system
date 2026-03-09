@@ -24,15 +24,7 @@ export class AuthService {
     });
   }
 
-  async validateUser(email: string, password: string) {
-    const user = await this.prismaService.user.findFirst({ where: { email } });
-    if (!user) throw new NotFoundException('User does not exist');
-    const passwordIsValid = await bcrypt.compare(password, user.password);
-    if (!passwordIsValid)
-      throw new UnauthorizedException('User does not match');
 
-    return user;
-  }
 
   login(user: User, response: Response) {
     const tokenPayload = {

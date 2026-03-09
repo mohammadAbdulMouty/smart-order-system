@@ -6,6 +6,8 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import Joi from 'joi';
 import { PrismaModule } from '@app/prisma';
 import { LocalStrategy } from './strategies/local.strategy';
+import { UsersService } from './users/users.service';
+import { JwtStrategy } from './strategies/jwt.strategy';
 
 @Module({
   imports: [
@@ -26,9 +28,9 @@ import { LocalStrategy } from './strategies/local.strategy';
     }),
     JwtModule.registerAsync({
       useFactory: (configService: ConfigService) => ({
-        secret: configService.get<string>('JWT_SECRET'),
+        secret: configService.getOrThrow<string>('JWT_SECRET'),
         signOptions: {
-          expiresIn: `${configService.get('JWT_EXPIRATION')}`,
+          expiresIn: `${configService.getOrThrow('JWT_EXPIRATION')}s`,
         },
       }),
       inject: [ConfigService],
@@ -36,6 +38,6 @@ import { LocalStrategy } from './strategies/local.strategy';
     PrismaModule,
   ],
   controllers: [AuthController],
-  providers: [AuthService, LocalStrategy],
+  providers: [AuthService, LocalStrategy, UsersService, JwtStrategy],
 })
 export class AuthModule {}
