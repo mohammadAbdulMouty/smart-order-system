@@ -1,16 +1,44 @@
-import { Controller, Get, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+} from '@nestjs/common';
 import { ProductsService } from './products.service';
-import { JwtAuthGuard } from '@app/auth-shared';
-import { CurrentUser } from '@app/decorators';
-import type { UserDto } from '@app/dto';
+import { CreateProductDto } from './dto/create-product.dto';
+import { UpdateProductDto } from './dto/update-product.dto';
+import { ApiTags } from '@nestjs/swagger';
 
-@Controller()
+@ApiTags('products')
+@Controller('products')
 export class ProductsController {
   constructor(private readonly productsService: ProductsService) {}
 
-  @UseGuards(JwtAuthGuard)
+  @Post()
+  create(@Body() dto: CreateProductDto) {
+    return this.productsService.create(dto);
+  }
+
   @Get()
-  getHello(@CurrentUser() user: UserDto) {
-    return user;
+  findAll() {
+    return this.productsService.findAll();
+  }
+
+  @Get(':id')
+  findOne(@Param('id') id: string) {
+    return this.productsService.findOne(id);
+  }
+
+  @Patch(':id')
+  update(@Param('id') id: string, @Body() dto: UpdateProductDto) {
+    return this.productsService.update(id, dto);
+  }
+
+  @Delete(':id')
+  remove(@Param('id') id: string) {
+    return this.productsService.remove(id);
   }
 }
