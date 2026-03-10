@@ -19,6 +19,33 @@
         "tsConfigPath": "apps/auth/tsconfig.app.json"
       }
     },
+    "auth-shared": {
+      "type": "library",
+      "root": "libs/auth-shared",
+      "entryFile": "index",
+      "sourceRoot": "libs/auth-shared/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/auth-shared/tsconfig.lib.json"
+      }
+    },
+    "decorators": {
+      "type": "library",
+      "root": "libs/decorators",
+      "entryFile": "index",
+      "sourceRoot": "libs/decorators/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/decorators/tsconfig.lib.json"
+      }
+    },
+    "dto": {
+      "type": "library",
+      "root": "libs/dto",
+      "entryFile": "index",
+      "sourceRoot": "libs/dto/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/dto/tsconfig.lib.json"
+      }
+    },
     "orders": {
       "type": "application",
       "root": "apps/orders",

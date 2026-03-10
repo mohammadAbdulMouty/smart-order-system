@@ -8,6 +8,7 @@ import { PrismaModule } from '@app/prisma';
 import { LocalStrategy } from './strategies/local.strategy';
 import { UsersService } from './users/users.service';
 import { JwtStrategy } from './strategies/jwt.strategy';
+import { RmqModule } from '@app/rmq';
 
 @Module({
   imports: [
@@ -25,7 +26,7 @@ import { JwtStrategy } from './strategies/jwt.strategy';
         JWT_SECRET: Joi.string().min(10).required(),
         JWT_EXPIRATION: Joi.number().required(),
         RABBIT_MQ_URI: Joi.string().required(),
-        RABBIT_MQ_BILLING_QUEUE: Joi.string().required(),
+        RABBIT_MQ_AUTH_QUEUE: Joi.string().required(),
       }),
     }),
     JwtModule.registerAsync({
@@ -38,6 +39,7 @@ import { JwtStrategy } from './strategies/jwt.strategy';
       inject: [ConfigService],
     }),
     PrismaModule,
+    RmqModule
   ],
   controllers: [AuthController],
   providers: [AuthService, LocalStrategy, UsersService, JwtStrategy],
