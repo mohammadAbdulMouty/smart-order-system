@@ -27,6 +27,12 @@
       ],
       "@app/prisma/*": [
         "libs/prisma/src/*"
+      ],
+      "@app/rmq": [
+        "libs/rmq/src"
+      ],
+      "@app/rmq/*": [
+        "libs/rmq/src/*"
       ]
     }
   }

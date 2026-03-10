@@ -24,6 +24,8 @@ import { JwtStrategy } from './strategies/jwt.strategy';
         DATABASE_URL: Joi.string().uri().required(),
         JWT_SECRET: Joi.string().min(10).required(),
         JWT_EXPIRATION: Joi.number().required(),
+        RABBIT_MQ_URI: Joi.string().required(),
+        RABBIT_MQ_BILLING_QUEUE: Joi.string().required(),
       }),
     }),
     JwtModule.registerAsync({
